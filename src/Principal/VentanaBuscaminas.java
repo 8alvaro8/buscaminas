@@ -10,7 +10,7 @@ import java.util.Random;
 
 /**
  *
- * @author Jorge Cisneros
+ * ALVARO
  */
 public class VentanaBuscaminas extends javax.swing.JFrame {
 
@@ -21,6 +21,7 @@ public class VentanaBuscaminas extends javax.swing.JFrame {
     int numMinas = 59;
     
     Boton [][] arrayBotones = new Boton[filas][columnas];
+    
 
     private void ponUnaBomba(){
         Random r = new Random();
@@ -29,6 +30,7 @@ public class VentanaBuscaminas extends javax.swing.JFrame {
        
        arrayBotones[f][c].bomba = 1;
        arrayBotones[f][c].setText("B");
+      
     }
     
     //cuentaminas realiza un paso previo que consiste en contar para cada celda
@@ -67,10 +69,15 @@ public class VentanaBuscaminas extends javax.swing.JFrame {
         setSize(1280, 1024);
         //le digo al jFrame que va a usar un layout de rejilla
         getContentPane().setLayout(new GridLayout(filas, columnas));
+        
+        
         for (int i=0; i< filas; i++){
             for (int j=0; j< columnas; j++){
              Boton boton = new Boton(i,j);
              boton.setBorder(null);
+            
+             
+             
              //añado el evento del clic del ratón
              boton.addMouseListener(new MouseAdapter(){
                  @Override
@@ -81,6 +88,8 @@ public class VentanaBuscaminas extends javax.swing.JFrame {
              });
              //añado el botón a mi array de botones
              arrayBotones[i][j] = boton;
+             
+             
              //añado el botón a la pantalla
              getContentPane().add(boton);
             }
@@ -95,7 +104,9 @@ public class VentanaBuscaminas extends javax.swing.JFrame {
     private void botonPulsado(MouseEvent e){
         Boton miBoton = (Boton) e.getComponent();
         if(e.getButton() == MouseEvent.BUTTON3){
+          
             miBoton.setText("?");
+            
         }
         else{
             //si es una bomba --> explota y se acaba la partida
@@ -104,12 +115,15 @@ public class VentanaBuscaminas extends javax.swing.JFrame {
             //que tengo que verificar
             ArrayList <Boton> listaDeCasillasAMirar = new ArrayList();
             //añado el botón que ha sido pulsado
+            
             listaDeCasillasAMirar.add(miBoton);
             
             while (listaDeCasillasAMirar.size() > 0){
                 Boton b = listaDeCasillasAMirar.get(0);
+                
                 for (int k=-1; k<2; k++){
                     for (int m=-1; m<2; m++){
+                       
                         if ((b.x + k >= 0)&&
                             (b.y + m >= 0)&&
                             (b.x + k < filas) &&
@@ -128,7 +142,8 @@ public class VentanaBuscaminas extends javax.swing.JFrame {
                 listaDeCasillasAMirar.remove(b);
             }
             //si no, verificamos la casilla 
-            miBoton.setText("0");
+            
+            miBoton.setText("!!");
         }
         
     }
